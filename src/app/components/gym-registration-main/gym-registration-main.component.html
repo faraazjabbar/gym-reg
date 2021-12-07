@@ -1,0 +1,29 @@
+<div *ngIf="data">
+  <form (ngSubmit)="submit()" [formGroup]="registrationForm">
+    <mat-tab-group>
+      <mat-tab label="Contact Details">
+        <app-form-field
+          *ngFor="let field of data.contact"
+          [field]="field"
+          [form]="registrationForm.get('contactForm')"
+        ></app-form-field>
+      </mat-tab>
+      <mat-tab *ngIf="data?.membership" label="Gym Plan">
+        <app-form-field
+          *ngIf="data?.membership?.plan"
+          [field]="data.membership.plan"
+          [form]="registrationForm.get('membershipControls')"
+        ></app-form-field>
+      </mat-tab>
+      <mat-tab label="Payment Details">
+        <app-form-field
+          *ngIf="data?.payment"
+          [field]="data.payment"
+          [form]="registrationForm.get('paymentControls')"
+        ></app-form-field>
+      </mat-tab>
+    </mat-tab-group>
+
+    <button class="submit" type="submit">Submit</button>
+  </form>
+</div>

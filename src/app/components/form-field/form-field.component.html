@@ -1,0 +1,32 @@
+<div [formGroup]="form">
+  <label [for]="field.name">{{ field.label }}</label>
+  <div [ngSwitch]="field.type">
+    <div *ngSwitchCase="'radio'">
+      <div *ngFor="let option of field.options">
+        <input
+          type="radio"
+          [formControlName]="field.name"
+          [id]="option"
+          [value]="option"
+        />
+        <label [for]="option">{{ option }}</label>
+      </div>
+    </div>
+    <input
+      [type]="field.inputType"
+      *ngSwitchCase="'text'"
+      [formControlName]="field.name"
+      [id]="field.name"
+    />
+    <select
+      [id]="field.name"
+      *ngSwitchCase="'dropdown'"
+      [formControlName]="field.name"
+    >
+      <option *ngFor="let option of field.options" [value]="option.key">
+        {{ option.value }}
+      </option>
+    </select>
+    <p *ngSwitchDefault>Invalid Form Type</p>
+  </div>
+</div>
